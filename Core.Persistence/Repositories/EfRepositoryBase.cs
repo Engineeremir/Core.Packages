@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Core.Persistence.Repositories;
 
-public class EfRepositoryBase<TEntity, TEntityId,TContext> :IAsyncRepository<TEntity,TEntityId>
+public class EfRepositoryBase<TEntity, TEntityId,TContext> :IAsyncRepository<TEntity,TEntityId>,IRepository<TEntity,TEntityId>
     where TEntity : Entity<TEntityId>
     where TContext : DbContext
 {
@@ -228,5 +228,55 @@ public class EfRepositoryBase<TEntity, TEntityId,TContext> :IAsyncRepository<TEn
         var queryProviderQuery =
             (IQueryable<object>)createQueryMethod.Invoke(query.Provider, parameters: new object[] { query.Expression })!;
         return queryProviderQuery.Where(x => !((IEntityTimeStamps)x).DeletedDate.HasValue);
+    }
+
+    public TEntity? Get(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null, bool withDeleted = false, bool enableTracking = true)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Paginate<TEntity> GetList(Expression<Func<TEntity, bool>>? predicate = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null, int index = 0, int size = 10, bool withDeleted = false, bool enableTracking = true)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Paginate<TEntity> GetListByDynamic(DynamicQuery dynamic, Expression<Func<TEntity, bool>>? predicate = null, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null, int index = 0, int size = 10, bool withDeleted = false, bool enableTracking = true)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool Any(Expression<Func<TEntity, bool>>? predicate = null, bool withDeleted = false, bool enableTracking = true)
+    {
+        throw new NotImplementedException();
+    }
+
+    public TEntity Add(TEntity entity)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ICollection<TEntity> AddRange(ICollection<TEntity> entities)
+    {
+        throw new NotImplementedException();
+    }
+
+    public TEntity Update(TEntity entity)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ICollection<TEntity> UpdateRange(ICollection<TEntity> entities)
+    {
+        throw new NotImplementedException();
+    }
+
+    public TEntity Delete(TEntity entity, bool permanent = false)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ICollection<TEntity> DeleteRange(ICollection<TEntity> entity, bool permanent = false)
+    {
+        throw new NotImplementedException();
     }
 }
